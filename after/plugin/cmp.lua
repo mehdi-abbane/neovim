@@ -24,7 +24,7 @@ local function setup_cmp()
 			{ name = "luasnip" }, -- Snippets
 		}, {
 			{ name = "buffer", max_item_count = 1 }, -- Buffer completions
-			{ name = "path" }, -- File path completions
+			{ name = "path" },  -- File path completions
 		}),
 	})
 end

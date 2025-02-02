@@ -37,10 +37,8 @@ return require("packer").startup(function(use)
 			require("nvim-tree").setup()
 		end,
 	})
-	use({
-		"jose-elias-alvarez/null-ls.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
-	})
+    use ({"lukas-reineke/lsp-format.nvim"})
+
 	use({
 		"mfussenegger/nvim-dap",
 		requires = {
