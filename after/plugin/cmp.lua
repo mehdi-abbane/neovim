@@ -1,7 +1,5 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-local lspconfig = require("lspconfig")
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("luasnip.loaders.from_vscode").lazy_load()
 local function setup_cmp()
 	cmp.setup({

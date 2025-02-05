@@ -104,15 +104,15 @@ _G.packer_plugins = {
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
-  ["galaxyline.nvim"] = {
+  ["gruvbox.nvim"] = {
     loaded = true,
-    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/galaxyline.nvim",
-    url = "https://github.com/glepnir/galaxyline.nvim"
+    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
+    url = "https://github.com/ellisonleao/gruvbox.nvim"
   },
-  ["lsp-format.nvim"] = {
+  ["lualine.nvim"] = {
     loaded = true,
-    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/lsp-format.nvim",
-    url = "https://github.com/lukas-reineke/lsp-format.nvim"
+    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -205,6 +205,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["tokyonight.nvim"] = {
+    loaded = true,
+    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
+    url = "https://github.com/folke/tokyonight.nvim"
   },
   ["vim-vsnip"] = {
     loaded = true,

@@ -4,6 +4,8 @@ return require("packer").startup(function(use)
 	-- Package Manager
 	use("wbthomason/packer.nvim")
 
+	use({ "ellisonleao/gruvbox.nvim" })
+	use({ "folke/tokyonight.nvim", })
 	-- UI Enhancements
 	use({
 		"rose-pine/neovim",
@@ -12,7 +14,6 @@ return require("packer").startup(function(use)
 			vim.cmd("colorscheme rose-pine")
 		end,
 	})
-	use({ "glepnir/galaxyline.nvim", branch = "main", requires = { "nvim-tree/nvim-web-devicons" } })
 
 	-- File Navigation
 	use({
@@ -37,12 +38,9 @@ return require("packer").startup(function(use)
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
 	})
-	use("lukas-reineke/lsp-format.nvim")
 	use({ "jose-elias-alvarez/null-ls.nvim" })
-
 	-- Rust Support
 	use("simrat39/rust-tools.nvim")
-
 	-- Autocompletion & Snippets
 	use({ "hrsh7th/nvim-cmp" })
 	use({ "hrsh7th/cmp-nvim-lsp" })
@@ -65,5 +63,8 @@ return require("packer").startup(function(use)
 
 	-- Testing
 	use({ "nvim-neotest/nvim-nio" })
+	use({
+		"nvim-lualine/lualine.nvim",
+		requires = { "nvim-tree/nvim-web-devicons", opt = true },
+	})
 end)
-
