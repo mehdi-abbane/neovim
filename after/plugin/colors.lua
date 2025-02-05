@@ -1,31 +1,8 @@
-local Color = {}
-function MakeNeovimTransparent(color)
-	color = color or "tokyonight-moon"
-	vim.api.nvim_command("colorscheme " .. color)
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
-	vim.api.nvim_set_hl(0, "WinSeparator", { fg = "none", bg = "none" })
-	vim.notify("\nChanged theme to " .. color)
-end
-
-Color.MakeNeovimTransparent = MakeNeovimTransparent
-
+local ThemeManager = require("after.plugin.theme.ThemeManager")
 local Themes = { 'tokyonight', "tokyonight-storm", "tokyonight-day", "tokyonight-moon", "tokyonight-day", "rose-pine",
-	"rose-pine-main", "rose-pine-dawn", "rose-pine-moon" }
-function ChangeYourTheme()
-	local choice
-	print("+---------------+")
-	print("|Changing Theme |\n")
-	print("+-------------- +")
-	for i, v in ipairs(Themes) do
-		print(i .. ': ' .. v)
-	end
-	choice = tonumber(vim.fn.input(""))
-	Color.MakeNeovimTransparent(Themes[choice])
-end
+	"rose-pine-main", "rose-pine-dawn", "rose-pine-moon", "monokai-pro", "monokai-pro-spectrum",
+	"monokai-pro-classic", "monokai-pro-octagon", "monokai-pro-machine", "monokai-pro-ristretto" }
 
-MakeNeovimTransparent()
-vim.api.nvim_set_keymap('n', '<leader>ct', ":lua ChangeYourTheme()<CR>", { noremap = true, silent = true })
-return Color
+vim.api.nvim_create_user_command("ThemeSelect", function() ThemeManager.showThemePopup(Themes) end, {})
+vim.api.nvim_set_keymap('n', '<leader>ct', ":ThemeSelect<CR>", { noremap = true, silent = true })
+ThemeManager.makeNeovimTheme(nil, Themes) -- Use the first theme by default
