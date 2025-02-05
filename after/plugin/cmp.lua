@@ -45,22 +45,6 @@ local function setup_search_cmp()
 		},
 	})
 end
-local function setup_lsp()
-	local servers = { "clangd", "omnisharp", "lua_ls", "ts_ls" }
-
-	for _, lsp in ipairs(servers) do
-		lspconfig[lsp].setup({
-			capabilities = capabilities,
-			on_attach = function(client, bufnr)
-				-- LSP keymaps
-				local opts = { noremap = true, silent = true, buffer = bufnr }
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-			end,
-		})
-	end
-end
 setup_cmp()
 setup_cmdline_cmp()
 setup_search_cmp()
-setup_lsp()

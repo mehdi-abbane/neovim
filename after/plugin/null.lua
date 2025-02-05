@@ -1,59 +1,25 @@
--- Require and setup lsp-format
-require('lsp-format').setup({
-	sync = false, -- Enable synchronous formatting (default: false)
-	async = true, -- Enable asynchronous formatting (default: true)
-	quiet = false, -- Suppress formatting warnings (default: false)
-})
+local null_ls = require("null-ls")
 
--- Attach lsp-format to LSP clients
-local on_attach = function(client, bufnr)
-	require('lsp-format').on_attach(client, bufnr)
-end
+-- Set up formatting with null-ls
+null_ls.setup({
+	sources = {
+		-- Python (black)
+		null_ls.builtins.formatting.black.with({ extra_args = { "--fast" } }),
 
--- Configure LSP servers
-local lspconfig = require('lspconfig')
+		-- JavaScript/TypeScript (prettier)
+		null_ls.builtins.formatting.prettier,
 
--- Lua (using stylua)
-lspconfig.lua_ls.setup({
-	on_attach = on_attach,
-	settings = {
-		Lua = {
-			format = {
-				enable = true,
-				defaultConfig = {
-					indent_style = "space",
-					indent_size = "2",
-				},
-			},
-		},
+		-- C++ (clang-format)
+		null_ls.builtins.formatting.clang_format,
+
+		-- CSS (prettier)
+		null_ls.builtins.formatting.prettier,
+
+		-- HTML (prettier)
+		null_ls.builtins.formatting.prettier,
 	},
 })
 
--- JavaScript/TypeScript (using Prettier)
-lspconfig.ts_ls.setup({
-	on_attach = on_attach,
-})
-
--- C/C++ (using clang-format)
-lspconfig.clangd.setup({
-	on_attach = on_attach,
-	cmd = {
-		"clangd",
-		"--background-index",
-		"--clang-tidy",
-		"--header-insertion=iwyu",
-		"--completion-style=detailed",
-		"--function-arg-placeholders",
-	},
-	filetypes = { "c", "cpp", "objc", "objcpp" },
-})
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.php",
-	callback = function()
-		vim.lsp.buf.format({ async = false }) -- Format the file before saving
-	end,
-})
--- Keybinding for Shift + F to format the document
-vim.keymap.set('n', '<S-F>', function()
-	vim.lsp.buf.format({ async = true })
-end, { noremap = true, silent = true })
+-- Format on save
+-- Format on demand with a keybinding (e.g., <leader>f)
+vim.api.nvim_set_keymap('n', '<S-f>', ':lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true })

@@ -1,12 +1,10 @@
 vim.cmd([[packadd packer.nvim]])
+
 return require("packer").startup(function(use)
+	-- Package Manager
 	use("wbthomason/packer.nvim")
-	use({
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.8",
-		-- or                            , branch = '0.1.x',
-		requires = { { "nvim-lua/plenary.nvim" } },
-	})
+
+	-- UI Enhancements
 	use({
 		"rose-pine/neovim",
 		as = "rose-pine",
@@ -14,38 +12,58 @@ return require("packer").startup(function(use)
 			vim.cmd("colorscheme rose-pine")
 		end,
 	})
+	use({ "glepnir/galaxyline.nvim", branch = "main", requires = { "nvim-tree/nvim-web-devicons" } })
+
+	-- File Navigation
+	use({
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.8",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
+	use({
+		"nvim-tree/nvim-tree.lua",
+		requires = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("nvim-tree").setup()
+		end,
+	})
+
+	-- Syntax & Treesitter
 	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
+
+	-- LSP & Formatting
 	use({
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
 	})
+	use("lukas-reineke/lsp-format.nvim")
+	use({ "jose-elias-alvarez/null-ls.nvim" })
+
+	-- Rust Support
+	use("simrat39/rust-tools.nvim")
+
+	-- Autocompletion & Snippets
+	use({ "hrsh7th/nvim-cmp" })
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/cmp-buffer" })
 	use({ "hrsh7th/cmp-path" })
 	use({ "hrsh7th/cmp-cmdline" })
-	use({ "hrsh7th/nvim-cmp" })
 	use({ "hrsh7th/cmp-vsnip" })
 	use({ "hrsh7th/vim-vsnip" })
 	use({ "L3MON4D3/LuaSnip" })
-	use({
-		"nvim-tree/nvim-tree.lua",
-		requires = {
-			"nvim-tree/nvim-web-devicons", -- optional, for file icons
-		},
-		config = function()
-			require("nvim-tree").setup()
-		end,
-	})
-    use ({"lukas-reineke/lsp-format.nvim"})
 
+	-- Debugging
 	use({
 		"mfussenegger/nvim-dap",
 		requires = {
-			"rcarriga/nvim-dap-ui", -- UI for nvim-dap
-			"theHamsta/nvim-dap-virtual-text", -- Optional: Inline variable values
-			"nvim-telescope/telescope-dap.nvim", -- Optional: DAP integration with Telescope
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+			"nvim-telescope/telescope-dap.nvim",
 		},
 	})
+
+	-- Testing
 	use({ "nvim-neotest/nvim-nio" })
 end)
+

@@ -1,3 +1,4 @@
+-- Mason UI settings
 require("mason").setup({
 	ui = {
 		border = "single",
@@ -9,28 +10,105 @@ require("mason").setup({
 	},
 })
 
+-- LSP Configuration
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Define on_attach function for keybindings
 local on_attach = function(client, bufnr)
-	local opts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-end
+	local bufmap = function(mode, lhs, rhs)
+		vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, { noremap = true, silent = true })
+	end
 
--- Configure LSP servers
-local servers = { "clangd", "lua_ls", "ts_ls", "html", "cssls", "omnisharp", "intelephense" }
+	-- Keybindings for LSP actions
+	bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")   -- Go to definition
+	bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")   -- Show references
+	bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")         -- Hover info
+	bufmap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>") -- Rename symbol
+	bufmap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- Code actions
+	bufmap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>") -- Previous diagnostic
+	bufmap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>") -- Next diagnostic
 
-for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup({
-		on_attach = on_attach,
-		capabilities = capabilities,
-	})
+	-- Format on save
+	if client.supports_method("textDocument/formatting") then
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			callback = function()
+				vim.lsp.buf.format()
+			end,
+		})
+	end
 end
-require("lspconfig").omnisharp.setup({
-	cmd = { "omnisharp", "--hostPID", tostring(vim.fn.getpid()), "--encoding", "utf-8", "--languageserver" },
+lspconfig.html.setup({
+	capabilities = capabilities,
+	on_attach = on_attach
 })
+
+-- CSS
+lspconfig.cssls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+lspconfig.clangd.setup({
+	capabilities = capabilities,
+	cmd = { "clangd", "--background-index", "--clang-tidy", "--completion-style=detailed" },
+})
+lspconfig.lua_ls.setup({
+	capabilities = capabilities,
+
+	on_attach = on_attach,
+	settings = {
+		Lua = {
+			runtime = { version = "LuaJIT" }, -- Neovim uses LuaJIT
+			diagnostics = {
+				globals = { "vim" }, -- Prevent 'undefined global vim' warning
+			},
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true), -- Recognize Neovim API
+				checkThirdParty = false, -- Avoid annoying popups
+			},
+			telemetry = { enable = false }, -- Disable telemetry
+		},
+	},
+})
+lspconfig.pyright.setup({
+	capabilities = capabilities,
+	settings = {
+		python = {
+			analysis = {
+				autoSearchPaths = true,
+				diagnosticMode = "workspace",
+				useLibraryCodeForTypes = true,
+				typeCheckingMode = "basic", -- Change to "strict" for stricter linting
+			},
+		},
+	},
+})
+lspconfig.omnisharp.setup({
+	cmd = { "omnisharp", "--hostPID", tostring(vim.fn.getpid()), "--encoding", "utf-8", "--languageserver" },
+	capabilities = capabilities,
+	root_dir = lspconfig.util.root_pattern("*.sln", ".git"),
+	settings = {
+		omnisharp = {
+			useModernNet = true, -- Uses modern .NET versions
+			enableRoslynAnalyzers = true,
+			organizeImportsOnFormat = true,
+		},
+	},
+})
+lspconfig.ts_ls.setup({
+	capabilities = capabilities,
+	settings = {
+		completions = {
+			completeFunctionCalls = true,
+		},
+	},
+})
+lspconfig.rust_analyzer.setup {
+	capabilities = capabilities,
+	settings = {
+		["rust-analyzer"] = {
+			checkOnSave = { command = "clippy" },
+		},
+	},
+}
