@@ -104,11 +104,15 @@ lspconfig.ts_ls.setup({
 		},
 	},
 })
-lspconfig.rust_analyzer.setup {
-	capabilities = capabilities,
+
+lspconfig.rust_analyzer.setup({
 	settings = {
 		["rust-analyzer"] = {
-			checkOnSave = { command = "clippy" },
+			cargo = { allFeatures = true },
+			checkOnSave = {
+				command = "clippy" -- Use Clippy for linting
+			},
 		},
 	},
-}
+})
+require("rust-tools").setup({})
