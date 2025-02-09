@@ -104,8 +104,18 @@ lspconfig.ts_ls.setup({
 		},
 	},
 })
-
 lspconfig.rust_analyzer.setup({
+	capabilities = capabilities,
+	on_attach = function(client, bufnr)
+		if client.supports_method("textDocument/formatting") then
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				buffer = bufnr,
+				callback = function()
+					vim.lsp.buf.format({ async = false }) -- Synchronous formatting
+				end,
+			})
+		end
+	end,
 	settings = {
 		["rust-analyzer"] = {
 			cargo = { allFeatures = true },
@@ -115,4 +125,5 @@ lspconfig.rust_analyzer.setup({
 		},
 	},
 })
+
 require("rust-tools").setup({})

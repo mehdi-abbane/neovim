@@ -17,7 +17,9 @@ null_ls.setup({
 
 		-- HTML (prettier)
 		null_ls.builtins.formatting.prettier,
+       		null_ls.builtins.formatting.rustfmt,
 	},
+
 })
 
 -- Format on save
