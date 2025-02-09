@@ -13,11 +13,7 @@ null_ls.setup({
 		null_ls.builtins.formatting.clang_format,
 
 		-- CSS (prettier)
-		null_ls.builtins.formatting.prettier,
-
-		-- HTML (prettier)
-		null_ls.builtins.formatting.prettier,
-       		null_ls.builtins.formatting.rustfmt,
+		null_ls.builtins.formatting.rustfmt,
 	},
 
 })

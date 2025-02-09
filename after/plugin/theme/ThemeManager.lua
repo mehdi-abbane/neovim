@@ -67,10 +67,10 @@ function ChangeTheme(themes)
 	local window = OpenWindow(width, height, content, "center")
 	local buf = window.buf
 	local win = window.win
-	local color = "rose-pine-moon" -- Default to first theme if not specified
+	local color = "tokyonight-storm" -- Default to first theme if not specified
 	applyTheme(color)
 
-	setKeymaps(buf, win, themes, setTheme)
+	setKeymaps(buf, win, themes)
 end
 
 applyTransparency()
