@@ -39,8 +39,6 @@ return require("packer").startup(function(use)
 		"neovim/nvim-lspconfig",
 	})
 	use({ "jose-elias-alvarez/null-ls.nvim" })
-	-- Rust Support
-	use("simrat39/rust-tools.nvim")
 	-- Autocompletion & Snippets
 	use({ "hrsh7th/nvim-cmp" })
 	use({ "hrsh7th/cmp-nvim-lsp" })
@@ -73,4 +71,5 @@ return require("packer").startup(function(use)
 			require("monokai-pro").setup()
 		end
 	}
+	use({ "ThePrimeagen/harpoon" })
 end)
