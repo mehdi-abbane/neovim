@@ -28,13 +28,13 @@ function applyTheme(color)
 	applyTransparency()
 end
 
-local function populatePopupBuffer(themes, content)
-	local lines = content or { "+---------------+", "| Select Theme  |", "+---------------+", }
+local function populatePopupBuffer(themes)
+	local lines = { "<b>+---------------+</b>", "<b>| Select Theme  |</b>", "<b>+---------------+</b>", }
 
 	for i, theme in ipairs(themes) do
-		table.insert(lines, string.format(" %d. %s", i, theme))
+		table.insert(lines, string.format("<b>%d. %s</b>", i, theme))
 	end
-	table.insert(lines, " Press number to select | q to cancel ")
+	table.insert(lines, "<i>Press number to select | <b>q</b> to cancel </i>")
 	return lines
 end
 
@@ -63,14 +63,10 @@ end
 function ChangeTheme(themes)
 	local width = 40
 	local height = #themes + 4
-	local content = populatePopupBuffer(themes)
-	local window = OpenWindow(width, height, content, "center")
-	local buf = window.buf
-	local win = window.win
+	local window = OpenWindow(width, height, populatePopupBuffer(themes), "center", "#333333")
 	local color = "tokyonight-storm" -- Default to first theme if not specified
 	applyTheme(color)
-
-	setKeymaps(buf, win, themes)
+	setKeymaps(window.buf, window.win, themes)
 end
 
 applyTransparency()
