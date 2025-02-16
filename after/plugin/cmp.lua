@@ -3,9 +3,21 @@ local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
 local function setup_cmp()
 	cmp.setup({
+		window = {
+			completion = {
+				border = "rounded", -- Adds rounded border to completion menu
+				winhighlight =
+				"Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+			},
+			documentation = {
+				border = "rounded", -- Adds rounded border to docs window
+				winhighlight =
+				"Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+			},
+		},
 		snippet = {
 			expand = function(args)
-				luasnip.lsp_expand(args.body) -- Use luasnip for snippet expansion
+				luasnip.lsp_expand() -- Use luasnip for snippet expansion
 			end,
 		},
 		mapping = {

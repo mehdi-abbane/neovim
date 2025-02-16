@@ -19,8 +19,6 @@ local on_attach = function(client, bufnr)
 	local bufmap = function(mode, lhs, rhs)
 		vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, { noremap = true, silent = true })
 	end
-
-	-- Keybindings for LSP actions
 	bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")   -- Go to definition
 	bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")   -- Show references
 	bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")         -- Hover info
@@ -28,8 +26,6 @@ local on_attach = function(client, bufnr)
 	bufmap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- Code actions
 	bufmap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>") -- Previous diagnostic
 	bufmap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>") -- Next diagnostic
-
-	-- Format on save
 	if client.supports_method("textDocument/formatting") then
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			buffer = bufnr,
@@ -43,8 +39,6 @@ lspconfig.html.setup({
 	capabilities = capabilities,
 	on_attach = on_attach
 })
-
--- CSS
 lspconfig.cssls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
