@@ -1,9 +1,9 @@
 vim.wo.number = true
 vim.opt.pumheight = 10
 vim.o.relativenumber = false
-vim.api.nvim_set_hl(0, "Bold", { bold = true })
-vim.api.nvim_set_hl(0, "Italic", { italic = true })
-vim.api.nvim_set_hl(0, "Underline", { underline = true })
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
 
 local html_content = [[
 <p>This is a <b>bold</b> text and this is <i>italic</i>.</p>

@@ -29,8 +29,8 @@ function applyTheme(color)
 end
 
 local function populatePopupBuffer(themes)
-	local lines = { "  <b>+----------------------------------+</b>",
-		"  <b>|            Select Theme          |</b>",
+	local lines = { "  <h1>+----------------------------------+</h1>",
+		"  <h1>|            Select Theme          |</h1>",
 		"  <b>+----------------------------------+</b>" }
 
 	for i, theme in ipairs(themes) do
@@ -73,7 +73,7 @@ function ChangeTheme(themes)
 
 
 	local listLines = populatePopupBuffer(themes)
-	local window = OpenWindow(width, height, listLines, "center")
+	local window = OpenWindow(width, height, listLines, "center", nil, "gruvbox")
 	local color = "tokyonight-storm" -- Default to first theme if not specified
 	applyTheme(color)
 	setKeymaps(window.buf, window.win, themes)

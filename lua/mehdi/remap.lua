@@ -8,3 +8,5 @@ vim.api.nvim_set_keymap('n', '<leader>vrr', ':lua vim.lsp.buf.references()<CR>',
 vim.api.nvim_set_keymap('n', '<leader>vrn', ':lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>ss', ':lua SplitPrompt()<CR>', { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>", { silent = true })
+vim.keymap.set("n", "<C-_>", "gcc", { remap = true, silent = true }) -- Normal mode
+vim.keymap.set("v", "<C-_>", "gc", { remap = true, silent = true })  -- Visual mode

@@ -1,4 +1,3 @@
--- Palette definitions for various color schemes
 local palettes = {
 	tokyonight = {
 		Bold          = "gui=bold",
@@ -165,6 +164,10 @@ local function ProcessContent(content, width)
 
 		-- Paragraphs
 		{ "<p>(.-)</p>",                   "Paragraph" },
+
+		-- Line breaks (returns a newline)
+		{ "<br%s*/?>",                     "LineBreak" },
+
 		-- Blockquotes
 		{ "<blockquote>(.-)</blockquote>", "Blockquote" },
 
@@ -191,7 +194,6 @@ local function ProcessContent(content, width)
 	for line_idx, orig_line in ipairs(content) do
 		local line = orig_line
 
-		-- Update ordered list state if needed
 		if line:find("<ol>") then
 			in_ol = true
 			ol_counter = 1
@@ -202,11 +204,9 @@ local function ProcessContent(content, width)
 			line = line:gsub("</ol>", "")
 		end
 
-		-- Remove unordered list wrappers (<ul> tags)
 		line = line:gsub("<ul>", ""):gsub("</ul>", "")
 
-		-- Process all tags in the line
-		local matches = {} -- Stores formatting matches for this line
+		local matches = {}
 
 		for _, hl in ipairs(highlights) do
 			local pattern, hl_group = hl[1], hl[2]
@@ -216,16 +216,13 @@ local function ProcessContent(content, width)
 				local text, extra
 
 				if hl_group == "Color" then
-					-- args[1] is the hex color, args[2] is the text
 					extra = args[1]
 					text = args[2]
 				elseif hl_group == "List" then
 					if in_ol then
-						-- For ordered lists, prepend a number and increment the counter
 						text = ol_counter .. ". " .. args[1]
 						ol_counter = ol_counter + 1
 					else
-						-- Unordered list gets a bullet
 						text = "• " .. args[1]
 					end
 				elseif hl_group == "Hr" then
@@ -235,19 +232,16 @@ local function ProcessContent(content, width)
 				elseif hl_group == "Blockquote" then
 					text = "> " .. args[1]
 				elseif hl_group == "Link" then
-					-- Capture URL and display the link text
 					extra = args[1]
 					text = args[2]
 				else
 					text = args[1]
 				end
-
-				-- Record match for later highlighting (if not a simple newline)
 				if hl_group ~= "LineBreak" then
 					table.insert(matches, {
 						text = text,
 						hl_group = hl_group,
-						hex = extra, -- For Color tags, extra holds the hex code; for Link, extra holds the URL
+						hex = extra,
 						url = (hl_group == "Link") and extra or nil,
 					})
 				end
@@ -255,15 +249,12 @@ local function ProcessContent(content, width)
 				return text
 			end)
 		end
-
-		-- Calculate highlight positions
-		-- (Note: Using string.find can be ambiguous if the same text occurs multiple times.)
 		for _, match in ipairs(matches) do
 			local start_pos = line:find(match.text, 1, true)
 			if start_pos then
 				table.insert(highlight_data, {
-					line_idx = line_idx - 1, -- 0-based index for nvim API
-					start_col = start_pos - 1, -- 0-based column
+					line_idx = line_idx - 1,
+					start_col = start_pos - 1,
 					end_col = start_pos + #match.text - 1,
 					hl_group = match.hl_group,
 					hex = match.hex,
@@ -289,39 +280,21 @@ function DoFunction(func, args)
 end
 
 function ApplyHighlights(highlight_data, buf, palette)
-	-- Select the palette; default to "tokyonight" if not provided
 	local selected_palette = palettes[palette] or palettes["tokyonight"]
-
-	-- Define highlight groups based on the selected palette
 	for group, settings in pairs(selected_palette) do
 		vim.cmd("highlight " .. group .. " " .. settings)
 	end
-
 	for _, hl in ipairs(highlight_data) do
-		-- For Color tags, dynamically create a group with the specified hex
 		if hl.hl_group == "Color" and hl.hex then
 			local color_hl = "Color" .. hl.hex
 			vim.cmd("highlight " .. color_hl .. " guifg=#" .. hl.hex)
 			hl.hl_group = color_hl
 		end
-
 		vim.api.nvim_buf_add_highlight(buf, -1, hl.hl_group, hl.line_idx, hl.start_col, hl.end_col)
 	end
 end
 
-function ApplyPopupStyles(buf, bg, fg)
-	bg = bg or "NONE"
-	fg = fg or "#ffffff"
-	vim.api.nvim_win_set_option(0, "winhl", "Normal:PopupBackground")
-	vim.cmd("highlight PopupBackground guibg=" .. bg)
-	vim.cmd("highlight NormalText guifg=" .. fg)
-	local normal_text_elements = { "p", "li", "span" } -- Extend as needed
-	for _, el in ipairs(normal_text_elements) do
-		vim.api.nvim_buf_add_highlight(buf, -1, "NormalText", 0, 0, -1)
-	end
-end
-
-function OpenWindow(width, height, content, pos, bg, fg, palette, func, funcArgs, row, col, opts)
+function OpenWindow(width, height, content, pos, bg, palette, func, funcArgs, row, col, opts)
 	local buf = createPopupBuffer()
 	content = content or { "" }
 	width = width or 50
@@ -331,10 +304,8 @@ function OpenWindow(width, height, content, pos, bg, fg, palette, func, funcArgs
 	local clean_content, highlight_data = ProcessContent(content, width)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, clean_content)
 	ApplyHighlights(highlight_data, buf, palette)
-	ApplyPopupStyles(buf, bg, fg)
 	DoFunction(func, funcArgs)
 	return { buf = buf, win = win }
 end
 
 return { OpenWindow }
-
