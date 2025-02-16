@@ -17,7 +17,7 @@ local function setup_cmp()
 		},
 		snippet = {
 			expand = function(args)
-				luasnip.lsp_expand() -- Use luasnip for snippet expansion
+				luasnip.lsp_expand(args.body) -- Use luasnip for snippet expansion
 			end,
 		},
 		mapping = {
