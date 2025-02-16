@@ -177,13 +177,12 @@ local function createPopupWindow(buf, width, height, row, col, opts, pos)
 		height = height,
 		row = row or winPos[2],
 		col = col or winPos[1],
-		border = "rounded",
+		border = "single",
 	}
 	return vim.api.nvim_open_win(buf, true, opts)
 end
 
 function SetOptionsToWindow(buf, win)
-	-- Close window with 'q'
 	vim.api.nvim_buf_set_keymap(buf, "n", "q", "<cmd>lua vim.api.nvim_win_close(" .. win .. ", true)<CR>", {
 		noremap = true,
 		silent = true,
@@ -192,7 +191,7 @@ function SetOptionsToWindow(buf, win)
 	vim.api.nvim_win_set_option(win, "linebreak", true)
 end
 
-local function ProcessContent(content, width)
+local function ProcessContent(content, width, buf)
 	-- State variables for ordered lists
 	local in_ol = false
 	local ol_counter = 0
@@ -204,34 +203,15 @@ local function ProcessContent(content, width)
 		{ "<i>(.-)</i>",                   "Italic" },
 		{ "<u>(.-)</u>",                   "Underline" },
 		{ "<color:#(.-)>(.-)</color>",     "Color" },
-
-		-- Headers
 		{ "<h1>(.-)</h1>",                 "Header1" },
 		{ "<h2>(.-)</h2>",                 "Header2" },
 		{ "<h3>(.-)</h3>",                 "Header3" },
-
-		-- Paragraphs
 		{ "<p>(.-)</p>",                   "Paragraph" },
-
-		-- Line breaks (returns a newline)
-		{ "<br%s*/?>",                     "LineBreak" },
-
-		-- Blockquotes
 		{ "<blockquote>(.-)</blockquote>", "Blockquote" },
-
-		-- Links (captures URL and text)
 		{ '<a href="(.-)">(.-)</a>',       "Link" },
-
-		-- List items (handles both unordered and ordered lists)
 		{ "<li>(.-)</li>",                 "List" },
-
-		-- Inline code
 		{ "<code>(.-)</code>",             "Code" },
-
-		-- Horizontal rule
 		{ "<hr>",                          "Hr" },
-
-		-- Strikethrough
 		{ "<strike>(.-)</strike>",         "Strikethrough" },
 		{ "<del>(.-)</del>",               "Strikethrough" },
 	}
@@ -314,6 +294,7 @@ local function ProcessContent(content, width)
 		table.insert(clean_content, line)
 	end
 
+
 	return clean_content, highlight_data
 end
 
@@ -348,10 +329,11 @@ function OpenWindow(width, height, content, pos, bg, palette, func, funcArgs, ro
 	width = width or 50
 	height = height or 10
 	local win = createPopupWindow(buf, width, height, row, col, opts, pos)
-	SetOptionsToWindow(buf, win)
-	local clean_content, highlight_data = ProcessContent(content, width)
+	local clean_content, highlight_data = ProcessContent(content, width, buf)
+
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, clean_content)
 	ApplyHighlights(highlight_data, buf, palette)
+	SetOptionsToWindow(buf, win)
 	DoFunction(func, funcArgs)
 	return { buf = buf, win = win }
 end

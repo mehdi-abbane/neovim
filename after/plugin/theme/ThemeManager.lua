@@ -17,6 +17,7 @@ function applyTransparency()
 	setHighlight("WinSeparator", { bg = "none" })
 	setHighlight("SignColumn", { bg = "none" })
 	setHighlight("EndOfBuffer", { bg = "none" })
+	vim.cmd("highlight FloatBorder guifg=NONE guibg=NONE")
 end
 
 local function setColorscheme(color)
@@ -70,13 +71,11 @@ function ChangeTheme(themes)
 	if #themes > 40 then
 		height = 30
 	end
-
-
 	local listLines = populatePopupBuffer(themes)
 	local window = OpenWindow(width, height, listLines, "center", nil, "gruvbox")
-	local color = "tokyonight-storm" -- Default to first theme if not specified
-	applyTheme(color)
+	local color = "abscs" -- Default to first theme if not specified
 	setKeymaps(window.buf, window.win, themes)
+	applyTheme(color)
 end
 
 applyTransparency()

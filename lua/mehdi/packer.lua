@@ -76,16 +76,15 @@ return require("packer").startup(function(use)
 	use({ 'Abstract-IDE/Abstract-cs' })
 	use({ "bluz71/vim-moonfly-colors" })
 	use({ "comfysage/evergarden" })
-	use {
+	use({
 		"kevinhwang91/nvim-ufo",
-		"kevinhwang91/promise-async",
 		dependencies = { "kevinhwang91/promise-async" },
 		config = function()
-			vim.opt.foldcolumn = "1" -- Show fold column
-			vim.opt.foldlevel = 99
-			vim.opt.foldlevelstart = 99
-			vim.opt.foldenable = true
-			require("ufo").setup()
+			require("ufo").setup({
+				provider_selector = function(_, _, _)
+					return { "lsp", "indent" } -- Use LSP first, fallback to indent
+				end,
+			})
 		end
-	}
+	})
 end)
