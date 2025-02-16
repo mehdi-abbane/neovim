@@ -74,6 +74,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Abstract-cs"] = {
+    loaded = true,
+    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/Abstract-cs",
+    url = "https://github.com/Abstract-IDE/Abstract-cs"
+  },
   LuaSnip = {
     loaded = true,
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -104,10 +109,20 @@ _G.packer_plugins = {
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
+  evergarden = {
+    loaded = true,
+    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/evergarden",
+    url = "https://github.com/comfysage/evergarden"
+  },
   ["gruvbox.nvim"] = {
     loaded = true,
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
     url = "https://github.com/ellisonleao/gruvbox.nvim"
+  },
+  harpoon = {
+    loaded = true,
+    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/harpoon",
+    url = "https://github.com/ThePrimeagen/harpoon"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -197,6 +212,11 @@ _G.packer_plugins = {
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
   },
+  ["solarized-osaka.nvim"] = {
+    loaded = true,
+    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/solarized-osaka.nvim",
+    url = "https://github.com/craftzdog/solarized-osaka.nvim"
+  },
   ["telescope-dap.nvim"] = {
     loaded = true,
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/telescope-dap.nvim",
@@ -212,6 +232,11 @@ _G.packer_plugins = {
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
+  ["vim-moonfly-colors"] = {
+    loaded = true,
+    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/vim-moonfly-colors",
+    url = "https://github.com/bluz71/vim-moonfly-colors"
+  },
   ["vim-vsnip"] = {
     loaded = true,
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/vim-vsnip",
@@ -220,6 +245,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: rose-pine
+time([[Config for rose-pine]], true)
+try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
+time([[Config for rose-pine]], false)
 -- Config for: monokai-pro.nvim
 time([[Config for monokai-pro.nvim]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16monokai-pro\frequire\0", "config", "monokai-pro.nvim")
@@ -228,10 +257,6 @@ time([[Config for monokai-pro.nvim]], false)
 time([[Config for nvim-tree.lua]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14nvim-tree\frequire\0", "config", "nvim-tree.lua")
 time([[Config for nvim-tree.lua]], false)
--- Config for: rose-pine
-time([[Config for rose-pine]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
-time([[Config for rose-pine]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

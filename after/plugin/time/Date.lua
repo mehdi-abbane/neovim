@@ -1,5 +1,9 @@
 function makeTime()
-	return { os.date('<b>                <color=#ff0000>%Y-%m-%d %H:%M:%S</color></b>      ') }
+	local content = {
+		'                <b>Time</b>   |   <b>Date</b>'
+		, '            <b>' .. os.date("%H:%M:%S") .. ' </b>  |  <b>' .. os.date("%Y-%m-%d") .. '</b>'
+	}
+	return content
 end
 
 vim.api.nvim_create_user_command("ShowTimePopUp", function()

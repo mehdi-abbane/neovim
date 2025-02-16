@@ -72,4 +72,8 @@ return require("packer").startup(function(use)
 		end
 	}
 	use({ "ThePrimeagen/harpoon" })
+	use({ "craftzdog/solarized-osaka.nvim" })
+	use({ 'Abstract-IDE/Abstract-cs' })
+	use({ "bluz71/vim-moonfly-colors" })
+	use({ "comfysage/evergarden" })
 end)
