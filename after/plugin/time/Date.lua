@@ -1,7 +1,7 @@
 function makeTime()
 	local content = {
-		'             <h1>Time</h1>      |     <h1>Date</h1>'
-		, '            <b>' .. os.date("%H:%M:%S") .. ' </b>  |  <b>' .. os.date("%Y-%m-%d") .. '</b>'
+		'             <h1>Time</h1>      |     <h1>Date</h1>',
+		'            <b>' .. os.date("%H:%M:%S") .. ' </b>  |  <b>' .. os.date("%Y-%m-%d") .. '</b>'
 	}
 	return content
 end

@@ -192,11 +192,8 @@ function SetOptionsToWindow(buf, win)
 end
 
 local function ProcessContent(content, width, buf)
-	-- State variables for ordered lists
 	local in_ol = false
 	local ol_counter = 0
-
-	-- Patterns for tags along with their highlight groups
 	local highlights = {
 		-- Basic text formatting
 		{ "<b>(.-)</b>",                   "Bold" },
@@ -215,13 +212,10 @@ local function ProcessContent(content, width, buf)
 		{ "<strike>(.-)</strike>",         "Strikethrough" },
 		{ "<del>(.-)</del>",               "Strikethrough" },
 	}
-
 	local clean_content = {}
 	local highlight_data = {}
-
 	for line_idx, orig_line in ipairs(content) do
 		local line = orig_line
-
 		if line:find("<ol>") then
 			in_ol = true
 			ol_counter = 1
@@ -231,11 +225,8 @@ local function ProcessContent(content, width, buf)
 			in_ol = false
 			line = line:gsub("</ol>", "")
 		end
-
 		line = line:gsub("<ul>", ""):gsub("</ul>", "")
-
 		local matches = {}
-
 		for _, hl in ipairs(highlights) do
 			local pattern, hl_group = hl[1], hl[2]
 
@@ -293,8 +284,6 @@ local function ProcessContent(content, width, buf)
 
 		table.insert(clean_content, line)
 	end
-
-
 	return clean_content, highlight_data
 end
 
@@ -309,7 +298,7 @@ function DoFunction(func, args)
 end
 
 function ApplyHighlights(highlight_data, buf, palette)
-	local selected_palette = palettes[palette] or palettes["tokyonight"]
+	local selected_palette = palettes[palette] or palettes['tokyonight']
 	for group, settings in pairs(selected_palette) do
 		vim.cmd("highlight " .. group .. " " .. settings)
 	end
@@ -325,12 +314,10 @@ end
 
 function OpenWindow(width, height, content, pos, bg, palette, func, funcArgs, row, col, opts)
 	local buf = createPopupBuffer()
-	content = content or { "" }
 	width = width or 50
 	height = height or 10
 	local win = createPopupWindow(buf, width, height, row, col, opts, pos)
-	local clean_content, highlight_data = ProcessContent(content, width, buf)
-
+	local clean_content, highlight_data = ProcessContent(content, width)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, clean_content)
 	ApplyHighlights(highlight_data, buf, palette)
 	SetOptionsToWindow(buf, win)
