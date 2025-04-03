@@ -4,6 +4,8 @@ return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 	use({ "ellisonleao/gruvbox.nvim" })
 	use({ "folke/tokyonight.nvim", })
+	use({ 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' })
+
 	use({ "rose-pine/neovim" })
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -57,16 +59,10 @@ return require("packer").startup(function(use)
 	use({ 'Abstract-IDE/Abstract-cs' })
 	use({ "bluz71/vim-moonfly-colors" })
 	use({ "comfysage/evergarden" })
-	use({
-		"kevinhwang91/nvim-ufo",
-		dependencies = { "kevinhwang91/promise-async" },
-		config = function()
-			require("ufo").setup({
-				provider_selector = function(_, _, _)
-					return { "lsp", "indent" } -- Use LSP first, fallback to indent
-				end,
-			})
-		end
-	})
 	use 'nvim-treesitter/nvim-treesitter-textobjects'
+	use({
+		"tpope/vim-dadbod",       -- Database interaction
+		"kristijanhusak/vim-dadbod-ui", -- UI for managing databases
+		"kristijanhusak/vim-dadbod-completion", -- Autocompletion for SQL
+	})
 end)
