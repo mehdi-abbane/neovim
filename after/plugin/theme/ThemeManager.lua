@@ -181,8 +181,8 @@ function ChangeTheme(themes)
 	local content, width = CreateContent(themes)
 	local window = OpenWindow(width, 30, content, "center", nil, "gruvbox")
 	SetKeymaps(window.buf, window.win, themes)
-	ApplyTheme("gruvbox")
+	ApplyTheme("abscs")
 end
 
-ApplyTheme("gruvbox")
+ApplyTheme("abscs")
 return { ChangeTheme = ChangeTheme, ApplyTheme = ApplyTheme }

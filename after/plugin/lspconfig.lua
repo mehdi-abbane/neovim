@@ -79,17 +79,13 @@ lspconfig.pyright.setup({
 	},
 })
 lspconfig.omnisharp.setup({
-	cmd = { "omnisharp", "--hostPID", tostring(vim.fn.getpid()), "--encoding", "utf-8", "--languageserver" },
-	capabilities = capabilities,
-	root_dir = lspconfig.util.root_pattern("*.sln", ".git"),
-	settings = {
-		omnisharp = {
-			useModernNet = true, -- Uses modern .NET versions
-			enableRoslynAnalyzers = true,
-			organizeImportsOnFormat = true,
-		},
-	},
+	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+	on_attach = function(client, bufnr)
+		-- optional: keymaps or capabilities here
+	end,
+	capabilities = require("cmp_nvim_lsp").default_capabilities(),
 })
+
 lspconfig.ts_ls.setup({
 	capabilities = capabilities,
 	settings = {
