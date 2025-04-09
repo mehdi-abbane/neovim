@@ -109,11 +109,6 @@ _G.packer_plugins = {
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
-  evergarden = {
-    loaded = true,
-    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/evergarden",
-    url = "https://github.com/comfysage/evergarden"
-  },
   ["gruvbox.nvim"] = {
     loaded = true,
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
@@ -138,12 +133,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
-  },
-  ["monokai-pro.nvim"] = {
-    config = { "\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16monokai-pro\frequire\0" },
-    loaded = true,
-    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/monokai-pro.nvim",
-    url = "https://github.com/loctvl842/monokai-pro.nvim"
   },
   neovim = {
     loaded = true,
@@ -241,11 +230,6 @@ _G.packer_plugins = {
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
-  ["tokyonight.nvim"] = {
-    loaded = true,
-    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
-    url = "https://github.com/folke/tokyonight.nvim"
-  },
   ["vim-dadbod"] = {
     loaded = true,
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/vim-dadbod",
@@ -261,11 +245,6 @@ _G.packer_plugins = {
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/vim-dadbod-ui",
     url = "https://github.com/kristijanhusak/vim-dadbod-ui"
   },
-  ["vim-moonfly-colors"] = {
-    loaded = true,
-    path = "/home/neovim/.local/share/nvim/site/pack/packer/start/vim-moonfly-colors",
-    url = "https://github.com/bluz71/vim-moonfly-colors"
-  },
   ["vim-vsnip"] = {
     loaded = true,
     path = "/home/neovim/.local/share/nvim/site/pack/packer/start/vim-vsnip",
@@ -274,10 +253,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: monokai-pro.nvim
-time([[Config for monokai-pro.nvim]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16monokai-pro\frequire\0", "config", "monokai-pro.nvim")
-time([[Config for monokai-pro.nvim]], false)
 -- Config for: nvim-tree.lua
 time([[Config for nvim-tree.lua]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14nvim-tree\frequire\0", "config", "nvim-tree.lua")

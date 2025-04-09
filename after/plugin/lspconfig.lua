@@ -116,15 +116,8 @@ lspconfig.rust_analyzer.setup({
 	},
 })
 
-lspconfig.intelephense.setup({
-	settings = {
-		intelephense = {
-			files = {
-				maxSize = 5000000, -- Adjust max file size if needed
-			},
-			diagnostics = {
-				enable = true,
-			},
-		},
-	},
-})
+lspconfig.intelephense.setup({})
+
+lspconfig.html.setup {
+	capabilities = capabilities, -- optional, for autocompletion (cmp)
+}
