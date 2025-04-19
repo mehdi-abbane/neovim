@@ -4,7 +4,7 @@ return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 	use({ "ellisonleao/gruvbox.nvim" })
 	use({ 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' })
-
+	use({ 'mg979/vim-visual-multi' })
 	use({ "rose-pine/neovim" })
 	use({
 		"nvim-telescope/telescope.nvim",

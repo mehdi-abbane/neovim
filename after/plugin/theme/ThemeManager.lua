@@ -179,7 +179,7 @@ end
 
 function ChangeTheme(themes)
 	local content, width = CreateContent(themes)
-	local window = OpenWindow(width, 30, content, "center", nil, "gruvbox")
+	local window = OpenWindow(27, 30, content, "center", nil, "gruvbox")
 	SetKeymaps(window.buf, window.win, themes)
 	ApplyTheme("abscs")
 end
