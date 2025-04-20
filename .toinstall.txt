@@ -1,0 +1,27 @@
+
+php
+dconf write /org/gnome/Ptyxis/Profiles/$(dconf read /org/gnome/Ptyxis/default-profile-uuid | tr -d "'")/opacity 0.85
+composer
+laravel
+nodejs
+bun
+rustup
+rustc
+cargo
+appache
+neovim
+wps
+typora
+curl
+nginx
+gh
+git
+mariadb
+postgresql
+sqlite
+mongodb
+redis
+docker
+postman
+clang
+dbeaver
