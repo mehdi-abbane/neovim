@@ -10,20 +10,6 @@ vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = "Close all fold
 vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds, { desc = "Reduce folding level" })
 vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith, { desc = "Increase folding level" })
 vim.keymap.set('n', 'zp', function()
-  require('ufo').peekFoldedLinesUnderCursor()
+	require('ufo').peekFoldedLinesUnderCursor()
 end, { desc = "Preview folded content" })
 
-require('ufo').setup({
-	provider_selector = function(bufnr, filetype, buftype)
-		return { 'treesitter', 'indent' }
-	end
-})
---
-
--- Option 4: disable all providers for all buffers
--- Not recommend, AFAIK, the ufo's providers are the best performance in Neovim
-require('ufo').setup({
-	provider_selector = function(bufnr, filetype, buftype)
-		return ''
-	end
-})

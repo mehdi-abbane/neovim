@@ -1,4 +1,5 @@
 local palettes = {
+
 	tokyonight = {
 		Bold          = "gui=bold",
 		Italic        = "gui=italic",
