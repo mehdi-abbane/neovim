@@ -79,70 +79,6 @@ local palettes = {
 		Hr            = "guifg=#928374",
 		Strikethrough = "gui=strikethrough",
 	},
-	["abstract cs"] = {
-		Bold          = "gui=bold",
-		Italic        = "gui=italic",
-		Underline     = "gui=underline",
-		Color0        = "guifg=#d0d0d0",
-		Header1       = "guifg=#ff6ac1 gui=bold",
-		Header2       = "guifg=#ffda61 gui=bold",
-		Header3       = "guifg=#6ac1ff gui=bold",
-		Paragraph     = "guifg=#ffffff",
-		Blockquote    = "guifg=#c0c0c0 gui=italic",
-		Link          = "guifg=#ff6ac1 gui=underline",
-		List          = "gui=bold",
-		Code          = "gui=italic guibg=#1e1e1e",
-		Hr            = "guifg=#444444",
-		Strikethrough = "gui=strikethrough",
-	},
-	desert = {
-		Bold          = "gui=bold",
-		Italic        = "gui=italic",
-		Underline     = "gui=underline",
-		Color0        = "guifg=#C2B280", -- Beige
-		Header1       = "guifg=#4B4E2C gui=bold", -- Dark Green
-		Header2       = "guifg=#F4A300 gui=bold", -- Accent Orange
-		Header3       = "guifg=#9E7B4E gui=bold", -- Brownish Orange
-		Paragraph     = "guifg=#3E1F1D", -- Dark Brown
-		Blockquote    = "guifg=#F4A300 gui=italic", -- Accent Orange
-		Link          = "guifg=#F4A300 gui=underline",
-		List          = "gui=bold",
-		Code          = "gui=italic guibg=#2F4E37", -- Dark Greenish background
-		Hr            = "guifg=#9E7B4E", -- Brownish Orange
-		Strikethrough = "gui=strikethrough",
-	},
-	shine = {
-		Bold          = "gui=bold",
-		Italic        = "gui=italic",
-		Underline     = "gui=underline",
-		Color0        = "guifg=#FFEC00", -- Bright Yellow
-		Header1       = "guifg=#FF5733 gui=bold", -- Red-Orange
-		Header2       = "guifg=#FF9F33 gui=bold", -- Soft Orange
-		Header3       = "guifg=#FF5733 gui=bold", -- Red-Orange
-		Paragraph     = "guifg=#000000", -- Black
-		Blockquote    = "guifg=#900C3F gui=italic", -- Deep Red
-		Link          = "guifg=#FF5733 gui=underline", -- Red-Orange
-		List          = "gui=bold",
-		Code          = "gui=italic guibg=#272822", -- Dark background
-		Hr            = "guifg=#900C3F", -- Deep Red
-		Strikethrough = "gui=strikethrough",
-	},
-	salet = {
-		Bold          = "gui=bold",
-		Italic        = "gui=italic",
-		Underline     = "gui=underline",
-		Color0        = "guifg=#2F4F4F", -- Dark Slate Green
-		Header1       = "guifg=#A1B7B7 gui=bold", -- Light Slate Grey
-		Header2       = "guifg=#6E6A86 gui=bold", -- Muted Purple
-		Header3       = "guifg=#4B4E2C gui=bold", -- Olive Green
-		Paragraph     = "guifg=#FFFFFF", -- White
-		Blockquote    = "guifg=#9CCFD8 gui=italic", -- Light Blue
-		Link          = "guifg=#A1B7B7 gui=underline", -- Light Slate Grey
-		List          = "gui=bold",
-		Code          = "gui=italic guibg=#1C2A2A", -- Dark Slate Green background
-		Hr            = "guifg=#A1B7B7", -- Light Slate Grey
-		Strikethrough = "gui=strikethrough",
-	},
 }
 
 local function createPopupBuffer()
@@ -152,31 +88,29 @@ end
 local function calculateWindowPosition(width, height, position)
 	local ui = vim.api.nvim_list_uis()[1]
 	local screen_width, screen_height = ui.width, ui.height
-
 	local positions = {
-		["top_left"]      = { 0, 0 },
-		["top_center"]    = { (screen_width - width) / 2, 0 },
-		["top_right"]     = { screen_width - width, 0 },
-		["bottom_left"]   = { 0, screen_height - height },
-		["bottom_center"] = { (screen_width - width) / 2, screen_height - height },
-		["bottom_right"]  = { screen_width - width, screen_height - height },
-		["left_center"]   = { 0, (screen_height - height) / 2 },
-		["right_center"]  = { screen_width - width, (screen_height - height) / 2 },
-		["center"]        = { (screen_width - width) / 2, (screen_height - height) / 2 },
+		top_left      = { 0, 0 },
+		top_center    = { (screen_width - width) / 2, 0 },
+		top_right     = { screen_width - width, 0 },
+		bottom_left   = { 0, screen_height - height },
+		bottom_center = { (screen_width - width) / 2, screen_height - height },
+		bottom_right  = { screen_width - width, screen_height - height },
+		left_center   = { 0, (screen_height - height) / 2 },
+		right_center  = { screen_width - width, (screen_height - height) / 2 },
+		center        = { (screen_width - width) / 2, (screen_height - height) / 2 },
 	}
-
-	return positions[position] or positions["top_left"]
+	return positions[position] or positions.top_left
 end
 
 local function createPopupWindow(buf, width, height, row, col, opts, pos)
-	local winPos = calculateWindowPosition(width, height, pos)
+	local win_pos = calculateWindowPosition(width, height, pos)
 	opts = opts or {
 		style = "minimal",
 		relative = "editor",
 		width = width,
 		height = height,
-		row = row or winPos[2],
-		col = col or winPos[1],
+		row = row or win_pos[2],
+		col = col or win_pos[1],
 		border = "single",
 	}
 	return vim.api.nvim_open_win(buf, true, opts)

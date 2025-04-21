@@ -20,7 +20,7 @@ function QuotingFunction(quotes)
 		"               +------------------+               ",
 		"               |Motivational Quote|               ",
 		"               +------------------+               ",
-		"      " .. quote .. "  ",
+		"  <b>    " .. quote .. " </b> ",
 		"                                                  ",
 		"                                                  ",
 		"               +------------------+               ",
@@ -28,7 +28,7 @@ function QuotingFunction(quotes)
 		"               +------------------+               ",
 	}
 
-	local window = OpenWindow(width, height, content, "center")
+	local window = OpenWindow(width, height, content, "center", "gruvbox")
 	local buf = window.buf
 	local win = window.win
 	-- Set the font for the popup buffer
