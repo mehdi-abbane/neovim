@@ -127,7 +127,7 @@ function SetOptionsToWindow(buf, win)
 	vim.api.nvim_win_set_option(win, "linebreak", true)
 end
 
-local function ProcessContent(content, width, buf)
+function ProcessContent(content, width, buf)
 	local in_ol = false
 	local ol_counter = 0
 	local highlights = {

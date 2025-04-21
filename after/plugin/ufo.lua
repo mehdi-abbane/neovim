@@ -9,6 +9,11 @@ ufo.setup({
 	end,
 	close_fold_kinds = { 'imports', 'comment' },
 	preview = {
+		win_config = {
+			border = 'rounded',
+			-- winhighlight = 'Normal:Folded',
+			winblend = 1
+		},
 		mappings = {
 			scrollU = '<C-u>',
 			scrollD = '<C-d>'
@@ -31,6 +36,7 @@ ufo.setup({
 				local hlGroup = chunk[2]
 				table.insert(newVirtText, { chunkText, hlGroup })
 				chunkWidth = vim.fn.strdisplaywidth(chunkText)
+				-- str width returned from truncate() may less than 2nd argument, need padding
 				if curWidth + chunkWidth < targetWidth then
 					suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
 				end
