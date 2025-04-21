@@ -1,5 +1,4 @@
 local palettes = {
-
 	tokyonight = {
 		Bold          = "gui=bold",
 		Italic        = "gui=italic",
@@ -16,6 +15,7 @@ local palettes = {
 		Hr            = "guifg=#565f89",
 		Strikethrough = "gui=strikethrough",
 	},
+
 	monokai = {
 		Bold          = "gui=bold",
 		Italic        = "gui=italic",
@@ -32,6 +32,7 @@ local palettes = {
 		Hr            = "guifg=#f8f8f2",
 		Strikethrough = "gui=strikethrough",
 	},
+
 	["rose-pine"] = {
 		Bold          = "gui=bold",
 		Italic        = "gui=italic",
@@ -247,7 +248,7 @@ function ApplyHighlights(highlight_data, buf, palette)
 	end
 end
 
-function OpenWindow(width, height, content, pos, bg, palette, func, funcArgs, row, col, opts)
+function OpenWindow(width, height, content, pos, palette, func, funcArgs, row, col, opts)
 	local buf = createPopupBuffer()
 	width = width or 50
 	height = height or 10

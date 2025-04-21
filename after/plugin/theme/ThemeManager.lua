@@ -3,7 +3,6 @@ function SetHighlight(group, options)
 end
 
 function ApplyTransparency()
-	-- Transparent background for general UI elements
 	SetHighlight("Normal", { bg = "none" })
 	SetHighlight("NormalNC", { bg = "none" })
 	SetHighlight("NormalFloat", { bg = "none" })
@@ -179,7 +178,7 @@ end
 
 function ChangeTheme(themes)
 	local content, width = CreateContent(themes)
-	local window = OpenWindow(27, 30, content, "center", nil, "gruvbox")
+	local window = OpenWindow(27, 30, content, "center", "gruvbox")
 	SetKeymaps(window.buf, window.win, themes)
 	ApplyTheme("solarized-osaka")
 end
