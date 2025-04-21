@@ -1,4 +1,5 @@
 -- Mason UI settings
+require('nvim-ts-autotag').setup()
 require("mason").setup({
 	ui = {
 		border = "single",
@@ -11,7 +12,7 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-	ensure_installed = { "black", 'clangd', "html-lsp", "intelephense", "omnisharp", "omnisharp-mono", "pyright", "rust_analyzer", "typescript-lanague-server", "lua-language-server", "php-cs-fixer" }
+	-- ensure_installed = { "black", 'clangd', "html-lsp", "intelephense", "omnisharp", "omnisharp-mono", "pyright", "rust_analyzer", "typescript-lanague-server", "lua-language-server", "php-cs-fixer" }
 })
 
 -- LSP Configuration
