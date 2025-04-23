@@ -1,13 +1,14 @@
 -- Add this to your Neovim config (init.lua or in a separate file)
 local ufo = require('ufo')
-
+vim.opt.foldenable = true
+vim.opt.foldlevel = 99 -- start with all folds open
+vim.opt.foldlevelstart = 99
 -- Basic setup
 ufo.setup({
-	-- open_fold_hl_timeout = 0,
+	open_fold_hl_timeout = 20,
 	provider_selector = function(bufnr, filetype, buftype)
 		return { 'treesitter', 'indent' }
 	end,
-	close_fold_kinds = { 'imports', 'comment' },
 	preview = {
 		win_config = {
 			border = 'rounded',

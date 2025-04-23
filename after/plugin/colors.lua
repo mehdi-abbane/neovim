@@ -3,7 +3,7 @@ local Themes = { "rose-pine",
 	'gruvbox',
 	"shine", "moonfly",
 	"solarized-osaka", "sorbet", "vim", "ron", "delek", "desert", "default", "torte", "zaibatsu", "slate", "industry",
-	"abscs", "evergarden", "habamax"
+	"abscs", "habamax"
 }
 
 
