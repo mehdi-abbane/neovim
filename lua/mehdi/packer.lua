@@ -6,7 +6,7 @@ return require("packer").startup(function(use)
 	use({ 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' })
 	use({ 'mg979/vim-visual-multi' })
 	use({ 'windwp/nvim-ts-autotag' })
-
+	use({ "barrett-ruth/live-server.nvim" })
 
 	use({ "rose-pine/neovim" })
 	use({

@@ -30,11 +30,10 @@ local function setup_cmp()
 			["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm selection
 		},
 		sources = cmp.config.sources({
-			{ name = "nvim_lsp" }, -- LSP completions
-			{ name = "luasnip" }, -- Snippets
-		}, {
-			{ name = "buffer", max_item_count = 1 }, -- Buffer completions
-			{ name = "path" },  -- File path completions
+			{ name = "nvim_lsp" },
+			{ name = "luasnip" },
+			{ name = "buffer",  max_item_count = 1 },
+			{ name = "path" },
 		}),
 	})
 end

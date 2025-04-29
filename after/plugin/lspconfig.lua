@@ -1,4 +1,3 @@
--- Mason UI settings
 require('nvim-ts-autotag').setup()
 require("mason").setup({
 	ui = {
@@ -15,11 +14,8 @@ require("mason-lspconfig").setup({
 	-- ensure_installed = { "black", 'clangd', "html-lsp", "intelephense", "omnisharp", "omnisharp-mono", "pyright", "rust_analyzer", "typescript-lanague-server", "lua-language-server", "php-cs-fixer" , "local-lua-debugger-vscode", "codelldb", "netcoredbg", "php-debug-adapter"}
 })
 
--- LSP Configuration
 local lspconfig = require("lspconfig")
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
--- Define on_attach function for keybindings
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = function(client, bufnr)
 	local bufmap = function(mode, lhs, rhs)
 		vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, { noremap = true, silent = true })
@@ -40,14 +36,6 @@ local on_attach = function(client, bufnr)
 		})
 	end
 end
-lspconfig.html.setup({
-	capabilities = capabilities,
-	on_attach = on_attach
-})
-lspconfig.cssls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
 lspconfig.clangd.setup({
 	capabilities = capabilities,
 	cmd = { "clangd", "--background-index", "--clang-tidy", "--completion-style=detailed" },
@@ -70,35 +58,40 @@ lspconfig.lua_ls.setup({
 		},
 	},
 })
-lspconfig.pyright.setup({
-	capabilities = capabilities,
-	settings = {
-		python = {
-			analysis = {
-				autoSearchPaths = true,
-				diagnosticMode = "workspace",
-				useLibraryCodeForTypes = true,
-				typeCheckingMode = "basic", -- Change to "strict" for stricter linting
-			},
-		},
-	},
-})
 lspconfig.omnisharp.setup({
 	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-	on_attach = function(client, bufnr)
-		-- optional: keymaps or capabilities here
-	end,
-	capabilities = require("cmp_nvim_lsp").default_capabilities(),
+	capabilities = capabilities,
 })
-
 lspconfig.ts_ls.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 	settings = {
 		completions = {
 			completeFunctionCalls = true,
 		},
 	},
 })
+lspconfig.svelte.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+lspconfig.vls.setup {
+	cmd = { "vls", "--stdio" },
+	capabilities = capabilities,
+	on_attach = on_attach,
+	filetypes = { "vue" },
+	root_dir = require 'lspconfig'.util.root_pattern("package.json", "tsconfig.json", ".git"),
+	init_options = {
+		config = {
+			vetur = {
+				completion = true,
+				validation = true,
+				formatting = true,
+			}
+		}
+	},
+}
+
 lspconfig.rust_analyzer.setup({
 	capabilities = capabilities,
 	on_attach = function(client, bufnr)
@@ -119,10 +112,25 @@ lspconfig.rust_analyzer.setup({
 			},
 		},
 	},
+
 })
 
-lspconfig.intelephense.setup({})
+lspconfig.intelephense.setup({
+	capabilities = capabilities,
+	settings = {
+		intelephense = {
+			environment = {
+				includePaths = { "./vendor" }
+			},
+			files = {
+				maxSize = 5000000
+			}
+		}
+	}
+})
+lspconfig.cssls.setup({
+	capabilities = capabilities,
 
-lspconfig.html.setup {
-	capabilities = capabilities, -- optional, for autocompletion (cmp)
-}
+})
+
+lspconfig.html.setup({})
