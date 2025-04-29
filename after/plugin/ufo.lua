@@ -1,4 +1,3 @@
--- Add this to your Neovim config (init.lua or in a separate file)
 local ufo = require('ufo')
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99 -- start with all folds open
