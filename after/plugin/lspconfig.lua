@@ -134,3 +134,7 @@ lspconfig.cssls.setup({
 })
 
 lspconfig.html.setup({})
+lspconfig.zls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
