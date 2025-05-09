@@ -68,7 +68,6 @@ dap.configurations.cpp = {
 		stopOnEntry = false,
 	},
 }
-dap.configurations.rust = dap.configurations.cpp
 dap.adapters.php = {
 	type = 'executable',
 	command = 'node',
@@ -102,5 +101,22 @@ dap.configurations.cs = {
 		program = function()
 			return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
 		end,
+	},
+}
+dap.adapters.go = {
+	type = 'server',
+	port = 38697,
+	executable = {
+		command = 'dlv',
+		args = { 'dap', '-l', '127.0.0.1:38697' },
+	}
+}
+
+dap.configurations.go = {
+	{
+		type = 'go',
+		name = 'Debug',
+		request = 'launch',
+		program = "${file}",
 	},
 }

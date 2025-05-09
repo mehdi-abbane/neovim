@@ -24,7 +24,17 @@ function RenderMarkdown(content)
 	return content:gsub("<[^>]+>", "")
 end
 
+function FileTree()
+	local buf_ft = vim.bo.filetype
+	if buf_ft == "netrw" then
+		vim.cmd("q") -- Close netrw if it's already open
+	else
+		vim.cmd("Ex") -- Open netrw
+	end
+end
+
 return {
+
 	vcmd = vcmd,
 	RenderMarkdown = RenderMarkdown,
 	OpenUrl = OpenUrl,

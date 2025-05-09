@@ -9,8 +9,6 @@ null_ls.setup({
 		null_ls.builtins.formatting.prettier,
 		-- C++ (clang-format)
 		null_ls.builtins.formatting.clang_format,
-		-- CSS (prettier)
-		null_ls.builtins.formatting.rustfmt,
 		--PHP
 
 		null_ls.builtins.formatting.phpcsfixer,
@@ -19,7 +17,3 @@ null_ls.setup({
 		null_ls.builtins.formatting.shfmt,
 	},
 })
-
--- Format on save
--- Format on demand with a keybinding (e.g., <leader>f)
-vim.api.nvim_set_keymap('n', '<S-f>', ':lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true })

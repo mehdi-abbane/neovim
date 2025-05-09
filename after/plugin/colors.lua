@@ -1,7 +1,7 @@
 local Themes = { "rose-pine",
 	"rose-pine-main", "rose-pine-dawn", "rose-pine-moon",
 	'gruvbox',
-	"shine", "moonfly",
+	"shine",
 	"solarized-osaka", "sorbet", "vim", "ron", "delek", "desert", "default", "torte", "zaibatsu", "slate", "industry",
 	"abscs", "habamax"
 }

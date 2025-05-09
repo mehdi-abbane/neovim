@@ -109,11 +109,23 @@ lspconfig.cssls.setup({
 
 lspconfig.html.setup({
 	capabilities = capabilities,
-	on_attach = on_attach,
 })
 lspconfig.gopls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
+	gopls = {
+		usePlaceholders = true,
+		completeUnimported = true,
+		staticcheck = true,
+	},
+})
+lspconfig.htmx.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+lspconfig.emmet_language_server.setup({
+	filetypes    = { "html", "css", "javascript", "typescript", "vue" },
+	capabilities = capabilities
 })
 lspconfig.bashls.setup({
 	filetypes = { "sh", 'bash' },
