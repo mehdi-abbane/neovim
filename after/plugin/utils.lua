@@ -25,5 +25,9 @@ function RenderMarkdown(content)
 end
 
 return {
-	vcmd = vcmd, RenderMarkdown = RenderMarkdown, OpenUrl = OpenUrl
+	vcmd = vcmd,
+	RenderMarkdown = RenderMarkdown,
+	OpenUrl = OpenUrl,
+	-- select_inside_next_pair =
+	--     select_inside_next_pair
 }

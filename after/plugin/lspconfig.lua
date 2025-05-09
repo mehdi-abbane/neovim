@@ -11,7 +11,7 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-	-- ensure_installed = { "black", 'clangd', "html-lsp", "intelephense", "omnisharp", "omnisharp-mono", "pyright", "rust_analyzer", "typescript-lanague-server", "lua-language-server", "php-cs-fixer" , "local-lua-debugger-vscode", "codelldb", "netcoredbg", "php-debug-adapter"}
+	-- ensure_installed = { "black", 'clangd', "html-lsp", "intelephense", "omnisharp", "omnisharp-mono",  "typescript-lanague-server", "lua-language-server", "php-cs-fixer" , "local-lua-debugger-vscode", "codelldb", "netcoredbg", "php-debug-adapter"}
 })
 
 local lspconfig = require("lspconfig")
@@ -71,10 +71,6 @@ lspconfig.ts_ls.setup({
 		},
 	},
 })
-lspconfig.svelte.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
 lspconfig.vls.setup {
 	cmd = { "vls", "--stdio" },
 	capabilities = capabilities,
@@ -92,28 +88,6 @@ lspconfig.vls.setup {
 	},
 }
 
-lspconfig.rust_analyzer.setup({
-	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				buffer = bufnr,
-				callback = function()
-					vim.lsp.buf.format({ async = false }) -- Synchronous formatting
-				end,
-			})
-		end
-	end,
-	settings = {
-		["rust-analyzer"] = {
-			cargo = { allFeatures = true },
-			checkOnSave = {
-				command = "clippy" -- Use Clippy for linting
-			},
-		},
-	},
-
-})
 
 lspconfig.intelephense.setup({
 	capabilities = capabilities,
@@ -130,11 +104,19 @@ lspconfig.intelephense.setup({
 })
 lspconfig.cssls.setup({
 	capabilities = capabilities,
-
+	on_attach = on_attach,
 })
 
-lspconfig.html.setup({})
-lspconfig.zls.setup({
-	on_attach = on_attach,
+lspconfig.html.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
+})
+lspconfig.gopls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+lspconfig.bashls.setup({
+	filetypes = { "sh", 'bash' },
+	on_attach = on_attach,
+	capabilities = capabilities
 })

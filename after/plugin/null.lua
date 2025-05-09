@@ -12,7 +12,11 @@ null_ls.setup({
 		-- CSS (prettier)
 		null_ls.builtins.formatting.rustfmt,
 		--PHP
-		null_ls.builtins.formatting.phpcsfixer
+
+		null_ls.builtins.formatting.phpcsfixer,
+
+		--BASH
+		null_ls.builtins.formatting.shfmt,
 	},
 })
 
