@@ -10,9 +10,6 @@ require("mason").setup({
 	},
 })
 
-require("mason-lspconfig").setup({
-	-- ensure_installed = { "black", 'clangd', "html-lsp", "intelephense", "omnisharp", "omnisharp-mono",  "typescript-lanague-server", "lua-language-server", "php-cs-fixer" , "local-lua-debugger-vscode", "codelldb", "netcoredbg", "php-debug-adapter"}
-})
 
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
