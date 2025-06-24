@@ -116,10 +116,10 @@ lspconfig.gopls.setup({
 		staticcheck = true,
 	},
 })
-lspconfig.htmx.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
+-- lspconfig.htmx.setup({
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach,
+-- })
 lspconfig.emmet_language_server.setup({
 	filetypes    = { "html", "css", "javascript", "typescript", "vue" },
 	capabilities = capabilities
