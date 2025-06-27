@@ -23,7 +23,11 @@ return require("packer").startup(function(use)
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
 	})
-	use({ "jose-elias-alvarez/null-ls.nvim" })
+	use({
+		"nvimtools/none-ls.nvim",
+		requires = { "nvim-lua/plenary.nvim" }
+	})
+
 	use({ "hrsh7th/nvim-cmp" })
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/cmp-buffer" })
