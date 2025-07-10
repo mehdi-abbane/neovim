@@ -33,7 +33,14 @@ local function setup_cmp()
 			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
 			{ name = "buffer",  max_item_count = 1 },
-			{ name = "path" },
+			{
+				name = "path",
+				option = {
+					get_cwd = function(params)
+						return vim.fn.expand('%:p:h')
+					end
+				},
+			},
 		}),
 	})
 end

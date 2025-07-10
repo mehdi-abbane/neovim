@@ -1,4 +1,7 @@
 require("nvim-tree").setup({
+	filters = {
+		dotfiles = false,
+	},
 	sort = {
 		sorter = "case_sensitive",
 	},
@@ -12,4 +15,3 @@ require("nvim-tree").setup({
 		dotfiles = true,
 	},
 })
-

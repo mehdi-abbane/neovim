@@ -87,6 +87,7 @@ lspconfig.vls.setup {
 
 
 lspconfig.intelephense.setup({
+	on_attach = on_attach,
 	capabilities = capabilities,
 	settings = {
 		intelephense = {
@@ -105,6 +106,7 @@ lspconfig.cssls.setup({
 })
 
 lspconfig.html.setup({
+	filetypes = { "html", "php", "blade" },
 	capabilities = capabilities,
 })
 lspconfig.gopls.setup({
@@ -121,9 +123,10 @@ lspconfig.gopls.setup({
 -- 	on_attach = on_attach,
 -- })
 lspconfig.emmet_language_server.setup({
-	filetypes    = { "html", "css", "javascript", "typescript", "vue" },
+	filetypes    = { "html", "css", "javascript", "typescript", "vue", "php", "blade" },
 	capabilities = capabilities
 })
+
 lspconfig.bashls.setup({
 	filetypes = { "sh", 'bash' },
 	on_attach = on_attach,
