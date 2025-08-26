@@ -1,5 +1,13 @@
 local null_ls = require("null-ls")
-
+local blade_formatter = {
+	method = require("null-ls").methods.FORMATTING,
+	filetypes = { "blade" },
+	generator = require("null-ls.helpers").formatter_factory({
+		command = "blade-formatter",
+		args = { "--stdin" },
+		to_stdin = true,
+	}),
+}
 -- Set up formatting with null-ls
 null_ls.setup({
 	sources = {
@@ -15,5 +23,6 @@ null_ls.setup({
 
 		--BASH
 		null_ls.builtins.formatting.shfmt,
+		null_ls.builtins.fixjson
 	},
 })

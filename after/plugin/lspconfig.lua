@@ -33,9 +33,42 @@ local on_attach = function(client, bufnr)
 		})
 	end
 end
+
+
+local util = require("lspconfig.util")
+
+local omnisharp_bin = vim.fn.stdpath("data") .. "/mason/packages/omnisharp/OmniSharp"
+
+lspconfig.omnisharp.setup({
+	on_attach = on_attach,
+
+	capabilities = capabilities,
+	cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+	root_dir = util.root_pattern("*.sln", "*.csproj", ".git"),
+	enable_roslyn_analyzers = true,
+	organize_imports_on_format = true,
+	enable_import_completion = true,
+})
+
+
+
 lspconfig.clangd.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 	cmd = { "clangd", "--background-index", "--clang-tidy", "--completion-style=detailed" },
+})
+lspconfig.rust_analyzer.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = {
+
+		["rust-analyzer"] = {
+			cargo = { allFeatures = true },
+			checkOnSave = {
+				command = "clippy",
+			},
+		},
+	},
 })
 lspconfig.lua_ls.setup({
 	capabilities = capabilities,
@@ -55,10 +88,10 @@ lspconfig.lua_ls.setup({
 		},
 	},
 })
-lspconfig.omnisharp.setup({
-	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-	capabilities = capabilities,
-})
+-- lspconfig.omnisharp.setup({
+-- 	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+-- 	capabilities = capabilities,
+-- })
 lspconfig.ts_ls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
@@ -106,7 +139,7 @@ lspconfig.cssls.setup({
 })
 
 lspconfig.html.setup({
-	filetypes = { "html", "php", "blade" },
+	filetypes = { "html", "php", "blade", 'javascriptreact' },
 	capabilities = capabilities,
 })
 lspconfig.gopls.setup({
@@ -123,7 +156,7 @@ lspconfig.gopls.setup({
 -- 	on_attach = on_attach,
 -- })
 lspconfig.emmet_language_server.setup({
-	filetypes    = { "html", "css", "javascript", "typescript", "vue", "php", "blade" },
+	filetypes    = { "html", "css", "javascript", "typescript", "vue", "php", "blade", "javascriptreact" },
 	capabilities = capabilities
 })
 
@@ -132,3 +165,4 @@ lspconfig.bashls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities
 })
+lspconfig.pyright.setup({});

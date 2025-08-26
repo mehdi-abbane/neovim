@@ -7,6 +7,6 @@ function makeTime()
 end
 
 vim.api.nvim_create_user_command("ShowTimePopUp", function()
-	OpenWindow(50, 2, makeTime(), "top_right", "tokyonight")
+	OpenWindow(50, 2, makeTime(), "top_right", "solorized-osaka")
 end, {})
 vim.api.nvim_set_keymap('n', '<leader>st', ":ShowTimePopUp<CR>", { noremap = true, silent = true })

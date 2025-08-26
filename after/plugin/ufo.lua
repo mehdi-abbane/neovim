@@ -48,6 +48,9 @@ ufo.setup({
 		return newVirtText
 	end
 })
+vim.keymap.set('n', '<space>z', 'za') -- Toggle fold
+vim.keymap.set('n', '<space>o', 'zR') -- Open all folds
+vim.keymap.set('n', '<space>c', 'zM') -- Close all folds
 
 -- Key mappings
 vim.keymap.set('n', 'zR', ufo.openAllFolds)

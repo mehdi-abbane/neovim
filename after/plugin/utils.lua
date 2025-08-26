@@ -54,7 +54,7 @@ function JumpToNearestClosingBracketAndInsert()
 	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
 	local line = vim.api.nvim_get_current_line():sub(col + 1)
 	local positions = {}
-	for _, char in ipairs({ ")", "]", "}" }) do
+	for _, char in ipairs({ ")", "]", "}", '"' }) do
 		local pos = string.find(line, "%" .. char)
 		if pos then
 			table.insert(positions, col + pos)

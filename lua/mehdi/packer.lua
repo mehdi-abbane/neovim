@@ -1,6 +1,7 @@
 vim.cmd([[packadd packer.nvim]])
 
 return require("packer").startup(function(use)
+	use('mason-org/mason-registry');
 	use("wbthomason/packer.nvim")
 	use({ "ellisonleao/gruvbox.nvim" })
 	use({ 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' })
